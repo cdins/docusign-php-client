@@ -293,7 +293,7 @@ class ObjectSerializer
             }
             return $instance;
         } else {
-            throw  new ApiException(
+            throw new ApiException(
                 "Invalid form field type `" . $class . "` found.",
                 400
             );
