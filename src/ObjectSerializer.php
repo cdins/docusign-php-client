@@ -269,7 +269,7 @@ class ObjectSerializer
             }
 
             return $deserialized;
-        } else {
+        } elseif (class_exists($class)) {
             // If a discriminator is defined and points to a valid subclass, use it.
             $discriminator = $class::DISCRIMINATOR;
             if (!empty($discriminator) && isset($data->{$discriminator}) && is_string($data->{$discriminator})) {
@@ -292,6 +292,11 @@ class ObjectSerializer
                 }
             }
             return $instance;
+        } else {
+            throw  new ApiException(
+                "Invalid form field type `" . $class . "` found.",
+                400
+            );
         }
     }
 }
